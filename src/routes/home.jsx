@@ -37,6 +37,7 @@ function Home({ title }) {
   const [isLoading, setIsLoading] = useState(true)
   const [fee, setFee] = useState()
   const [totalSupply, setTotalSupply] = useState()
+  const [mintedImage, setMintedImage] = useState()
   const auth = useAuth()
   const SVG = useRef()
   const navigate = useNavigate()
@@ -197,6 +198,10 @@ function Home({ title }) {
                 count: party.variation.range(20, 40),
                 shapes: ['logo'],
               })
+
+              setMintedImage(imageUrl)
+              localStorage.setItem(`mintedImage`, imageUrl)
+
               e.target.innerHTML = `Mint`
               e.target.disabled = false
               toast.success(`Transaction has been confirmed! Check out your NFT on UP`)
@@ -244,6 +249,9 @@ function Home({ title }) {
     played = !played
   }
   useEffect(() => {
+    if (localStorage.getItem(`mintedImage`) !== undefined) {
+      setMintedImage(localStorage.getItem(`mintedImage`))
+    }
     const web3 = new Web3()
 
     getFee(`mint_price`).then((res) => {
@@ -263,23 +271,33 @@ function Home({ title }) {
   }, [])
 
   return (
-    <section className={`${styles.section} ms-motion-slideDownIn d-f-c`} onClick={playAudio}>
+    <section className={`${styles.section} ms-motion-slideDownIn d-f-c flex-column`} onClick={playAudio}>
       <figure className={`${styles.logo}`}>
         <img src={LogoCorner} />
       </figure>
 
       <div className={`__container d-f-c`} data-width={`xlarge`}>
         <div className={`${styles.mint} d-f-c flex-column`} id={`mint`}>
-          <figure>
+          <figure className={styles['bat']}>
             <img src={Bat} />
           </figure>
+
           <b>Total Supply: {totalSupply && totalSupply}/58</b>
           <b>Mint Price: {fee && fee} $LYX</b>
-          <button onClick={(e) => mint(e)}
-            disabled={(totalSupply===undefined || fee===undefined) ? true: false}
-            >{!auth.wallet ? `Connect` : `Mint`}</button>
+          <button onClick={(e) => mint(e)} disabled={totalSupply === undefined || fee === undefined ? true : false}>
+            {!auth.wallet ? `Connect` : `Mint`}
+          </button>
         </div>
       </div>
+
+      {mintedImage && (
+        <>
+          <figure className={`${styles.minted} mt-30 text-center`}>
+            <img src={`${mintedImage}`} />
+            <figcaption className={`text-white`}>Your PFP</figcaption>
+          </figure>
+        </>
+      )}
 
       <figure className={`${styles['tree']}`}>
         <img src={Tree} />

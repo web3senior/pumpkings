@@ -4,8 +4,6 @@
   min-height: 100%;
   padding: 4rem 0;
 
-
-  
   .logo {
     position: absolute;
     left: 0;
@@ -31,7 +29,7 @@
   color: var(--white);
   font-weight: bolder;
 
-  figure {
+  .bat {
     position: absolute;
     right: -7rem;
     top: -3rem;
@@ -56,6 +54,15 @@
     &:hover {
       background-color: #fff000;
     }
+  }
+}
+
+.minted {
+  overflow: hidden;
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
   }
 }
 
