@@ -13,7 +13,7 @@ import LogoCorner from './../assets/logo-corner.svg'
 import Hat from './../assets/hat.png'
 import Hand from './../assets/hand.png'
 import Candle from './../assets/candle.png'
-
+import Tree from './../assets/tree.svg'
 import CreepyHalloweenSound from './../assets/audio/creepy-halloween-bell-trap-melody-247720.mp3'
 import party, { random } from 'party-js'
 import styles from './Home.module.scss'
@@ -277,6 +277,10 @@ function Home({ title }) {
           <button onClick={(e) => mint(e)}>{!auth.wallet ? `Connect` : `Mint`}</button>
         </div>
       </div>
+
+      <figure className={`${styles['tree']}`}>
+        <img src={Tree} />
+      </figure>
 
       <figure className={`${styles['halloween']}`}>
         <img src={Halloween} />

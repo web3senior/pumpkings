@@ -3,17 +3,9 @@
 .section {
   min-height: 100%;
   padding: 4rem 0;
-  &:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 45vw;
-    height: 45vh;
-    background-image:url('./../assets/tree.svg') ;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
+
+
+  
   .logo {
     position: absolute;
     left: 0;
@@ -23,6 +15,14 @@
       width: max(14vw, 18rem);
     }
   }
+}
+
+.tree {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 45vw;
 }
 
 .mint {
