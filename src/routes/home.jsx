@@ -202,6 +202,10 @@ function Home({ title }) {
               setMintedImage(imageUrl)
               localStorage.setItem(`mintedImage`, imageUrl)
 
+              getTotalSupply().then((res) => {
+                setTotalSupply(web3.utils.toNumber(res))
+              })
+
               e.target.innerHTML = `Mint`
               e.target.disabled = false
               toast.success(`Transaction has been confirmed! Check out your NFT on UP`)
@@ -299,17 +303,7 @@ function Home({ title }) {
     //       ],
     //       assets: [],
     //       images: [
-    //         [
-    //           {
-    //             width: 1080,
-    //             height: 1080,
-    //             url: `https://ipfs.io/ipfs/QmVNhUQUZobqM4jzNqt41MjzwmPQVpuhg1ZAsocNhcbp2J/pumpkings-pfp-01.png`,
-    //             verification: {
-    //               method: 'keccak256(bytes)',
-    //               data: web3.utils.keccak256(result),
-    //             },
-    //           },
-    //         ],
+    
     //       ],
     //     },
     //   })
