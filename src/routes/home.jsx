@@ -275,7 +275,9 @@ function Home({ title }) {
           </figure>
           <b>Total Supply: {totalSupply && totalSupply}/58</b>
           <b>Mint Price: {fee && fee} $LYX</b>
-          <button onClick={(e) => mint(e)}>{!auth.wallet ? `Connect` : `Mint`}</button>
+          <button onClick={(e) => mint(e)}
+            disabled={(totalSupply===undefined || fee===undefined) ? true: false}
+            >{!auth.wallet ? `Connect` : `Mint`}</button>
         </div>
       </div>
 
