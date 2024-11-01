@@ -15,11 +15,11 @@ export const ABI = [ABIobjectLUKSO, ABIobject]
 export const contracts = [
   {
     abi: ABI[0],
-    contract_address: import.meta.env.VITE_MASTERPIX_CONTRACT_TESTNET_LUKSO,
+    contract_address: import.meta.env.VITE_MASTERPIX_CONTRACT_MAINNET_LUKSO,
   },
   {
     abi: ABI[1],
-    contract_address: import.meta.env.VITE_MASTERPIX_CONTRACT_TESTNET_ARBITRUM,
+    contract_address: import.meta.env.VITE_MASTERPIX_CONTRACT_MAINNET_ARBITRUM,
   },
 ]
 

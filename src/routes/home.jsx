@@ -221,13 +221,13 @@ function Home({ title }) {
     }
   }
   const getTotalSupply = async () => {
-    const web3 = new Web3(getDefaultChain() === `LUKSO` ? window.lukso : window.ethereum)
+    const web3 = new Web3(getDefaultChain() === `LUKSO` ? window.lukso || `https://42.rpc.thirdweb.com` : window.ethereum)
     const contract = new web3.eth.Contract(contracts[0].abi, contracts[0].contract_address)
     return await contract.methods.totalSupply().call()
   }
 
   const getFee = async (name) => {
-    const web3 = new Web3(getDefaultChain() === `LUKSO` ? window.lukso : window.ethereum)
+    const web3 = new Web3(getDefaultChain() === `LUKSO` ? window.lukso || `https://42.rpc.thirdweb.com` : window.ethereum)
     const contract = new web3.eth.Contract(contracts[0].abi, contracts[0].contract_address)
     return await contract.methods.fee(name).call()
   }
