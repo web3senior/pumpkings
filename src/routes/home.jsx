@@ -115,6 +115,7 @@ function Home({ title }) {
     }
 
     e.target.innerHTML = 'Please wait...'
+    e.target.disabled = true
 
     const web3 = new Web3(getDefaultChain() === `LUKSO` ? window.lukso : window.ethereum)
     const t = toast.loading(`Waiting for transaction's confirmation`)
@@ -150,15 +151,15 @@ function Home({ title }) {
                   type: 'boolean',
                 },
               ],
-              icon: [{ width: 500, height: 500, url: 'ipfs://QmWpSVntG9Mmk9CHczf9ZACKDTuQMVUedEDcCdwwbqBs9b', verification: { method: 'keccak256(bytes)', data: '0xe303725c7fa6e0c8741376085a3859d858eb4d188afa6402bb39d34f40e5ed3f' } }],
+              icon: [{ width: 500, height: 500, url: 'ipfs://QmSo9SgGZndKBHU72RajxfbuHLXvX69RDsXjeUzLTq9xYT', verification: { method: 'keccak256(bytes)', data: '0x42507c8f68914fd853c6fd2ada0b5d2503e0dc7bf34cadcafcdab90b09230829' } }],
               backgroundImage: [
                 {
-                  width: 1601,
-                  height: 401,
-                  url: 'ipfs://QmcTYAQmt7ZPbzR6w3XXzGwgfEu4zU2T4LLukqLBvJg2Eg',
+                  width: 1600,
+                  height: 400,
+                  url: 'ipfs://QmeLLiebWhsQLQw8PCKuS1x8Umj7hMqZVmkNq4pdsU4nvH',
                   verification: {
                     method: 'keccak256(bytes)',
-                    data: '0x0fd8498ada7a39b1eb9f6ed54adc8950a84d5d79ad8418eb46fbcaf6a5c9638b',
+                    data: '0xe96ce0fbe7a758af3aedcc00c26b3859a15a47c20306e0cd9cde04373b79f1df',
                   },
                 },
               ],
@@ -196,11 +197,13 @@ function Home({ title }) {
                 shapes: ['logo'],
               })
               e.target.innerHTML = `Mint`
+              e.target.disabled = false
               toast.success(`Transaction has been confirmed! Check out your NFT on UP`)
               toast.dismiss(t)
             })
             .catch((error) => {
               e.target.innerHTML = 'Mint'
+              e.target.disabled = false
               console.log(error)
               toast.dismiss(t)
             })
@@ -251,6 +254,10 @@ function Home({ title }) {
     getTotalSupply().then((res) => {
       setTotalSupply(web3.utils.toNumber(res))
       setIsLoading(false)
+    })
+
+    rAsset(`https://ipfs.io/ipfs/QmeLLiebWhsQLQw8PCKuS1x8Umj7hMqZVmkNq4pdsU4nvH`).then((res) => {
+      console.log(web3.utils.keccak256(res))
     })
   }, [])
 
