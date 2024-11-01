@@ -114,18 +114,21 @@ function Home({ title }) {
       return
     }
 
-    e.target.innerHTML = 'Mint'
+    e.target.innerHTML = 'Please wait...'
 
     const web3 = new Web3(getDefaultChain() === `LUKSO` ? window.lukso : window.ethereum)
     const t = toast.loading(`Waiting for transaction's confirmation`)
+
+    const nextNFT = totalSupply.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
+
     try {
-      let imageUrl = `QmVNhUQUZobqM4jzNqt41MjzwmPQVpuhg1ZAsocNhcbp2J/pumpkings-pfp-0${totalSupply+1}.png`
+      let imageUrl = `https://ipfs.io/ipfs/QmVNhUQUZobqM4jzNqt41MjzwmPQVpuhg1ZAsocNhcbp2J/pumpkings-pfp-${nextNFT}.png`
       console.log(imageUrl)
       let rawMetadata
 
       if (auth.defaultChain === 'LUKSO') {
         const tConvert = toast.loading(`Generating metadata, takes two minutes...please wait`)
-        rAsset(`https://ipfs.io/ipfs/${imageUrl}`).then((result) => {
+        rAsset(`${imageUrl}`).then((result) => {
           toast.dismiss(tConvert)
           console.log(result)
           console.log(`Verifiable URL`, web3.utils.keccak256(result))
@@ -138,9 +141,14 @@ function Home({ title }) {
                 { title: 'Mint', url: 'https://pumpkings.boo' },
               ],
               attributes: [
-                { key: 'Version', value: 1 },
-                { key: 'Year', value: 2024 },
-                { key: 'Type', value: `PFP` },
+                { key: 'Version', value: 1, type: 'number' },
+                { key: 'Year', value: 2024, type: 'number' },
+                { key: 'Type', value: `PFP`, type: 'string' },
+                {
+                  key: '🆙',
+                  value: true,
+                  type: 'boolean',
+                },
               ],
               icon: [{ width: 500, height: 500, url: 'ipfs://QmWpSVntG9Mmk9CHczf9ZACKDTuQMVUedEDcCdwwbqBs9b', verification: { method: 'keccak256(bytes)', data: '0xe303725c7fa6e0c8741376085a3859d858eb4d188afa6402bb39d34f40e5ed3f' } }],
               backgroundImage: [
@@ -155,7 +163,19 @@ function Home({ title }) {
                 },
               ],
               assets: [],
-              images: [[{ width: 500, height: 500, url: `ipfs://${imageUrl}`, verification: { method: 'keccak256(bytes)', data: web3.utils.keccak256(result) } }]],
+              images: [
+                [
+                  {
+                    width: 1080,
+                    height: 1080,
+                    url: `${imageUrl}`,
+                    verification: {
+                      method: 'keccak256(bytes)',
+                      data: web3.utils.keccak256(result),
+                    },
+                  },
+                ],
+              ],
             },
           })
 
@@ -175,11 +195,12 @@ function Home({ title }) {
                 count: party.variation.range(20, 40),
                 shapes: ['logo'],
               })
-
+              e.target.innerHTML = `Mint`
               toast.success(`Transaction has been confirmed! Check out your NFT on UP`)
               toast.dismiss(t)
             })
             .catch((error) => {
+              e.target.innerHTML = 'Mint'
               console.log(error)
               toast.dismiss(t)
             })
@@ -221,7 +242,7 @@ function Home({ title }) {
   useEffect(() => {
     const web3 = new Web3()
 
-    getFee(`mint_fee`).then((res) => {
+    getFee(`mint_price`).then((res) => {
       console.log(res)
       setFee(web3.utils.fromWei(web3.utils.toNumber(res), `ether`))
       setIsLoading(false)
@@ -246,7 +267,7 @@ function Home({ title }) {
           </figure>
           <b>Total Supply: {totalSupply && totalSupply}/58</b>
           <b>Mint Price: {fee && fee} $LYX</b>
-          <button onClick={(e) => mint(e)}>Connect</button>
+          <button onClick={(e) => mint(e)}>{!auth.wallet ? `Connect` : `Mint`}</button>
         </div>
       </div>
 
