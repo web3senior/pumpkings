@@ -1,0 +1,75 @@
+@import './../styles/components/responsive';
+
+.section {
+  min-height: 100%;
+  padding: 4rem 0;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 45vw;
+    height: 45vh;
+    background-image:url('./../assets/tree.svg') ;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  .logo {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    img {
+      width: max(14vw, 18rem);
+    }
+  }
+}
+
+.mint {
+  position: relative;
+  width: fit-content;
+  color: var(--white);
+  font-weight: bolder;
+
+  figure {
+    position: absolute;
+    right: -7rem;
+    top: -3rem;
+    z-index: 1;
+    animation: bats-move 0.2s linear infinite 0.01s alternate;
+  }
+
+  button {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 60px;
+    gap: 10px;
+    color: #01092e;
+    font-size: 2rem;
+    font-weight: bolder;
+    background: linear-gradient(81.04deg, rgba(255, 240, 0, 0) 12.7%, #fff000 81.34%);
+    border-radius: 999px;
+    z-index: 2;
+    &:hover {
+      background-color: #fff000;
+    }
+  }
+}
+
+@keyframes bats-move {
+  0% {
+    top: -3.1rem;
+  }
+  100% {
+    top: -3.4rem;
+  }
+}
+.halloween {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+}
