@@ -122,7 +122,7 @@ function Home({ title }) {
     const web3 = new Web3(getDefaultChain() === `LUKSO` ? window.lukso : window.ethereum)
     const t = toast.loading(`Waiting for transaction's confirmation`)
 
-    const nextNFT = totalSupply.toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
+    const nextNFT = (totalSupply + 1).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
 
     try {
       let imageUrl = `https://ipfs.io/ipfs/QmVNhUQUZobqM4jzNqt41MjzwmPQVpuhg1ZAsocNhcbp2J/pumpkings-pfp-${nextNFT}.png`
@@ -265,9 +265,56 @@ function Home({ title }) {
       setIsLoading(false)
     })
 
-    rAsset(`https://ipfs.io/ipfs/QmeLLiebWhsQLQw8PCKuS1x8Umj7hMqZVmkNq4pdsU4nvH`).then((res) => {
-      console.log(web3.utils.keccak256(res))
-    })
+    // If you wanna update a token, use this
+    // rAsset(`https://ipfs.io/ipfs/QmVNhUQUZobqM4jzNqt41MjzwmPQVpuhg1ZAsocNhcbp2J/pumpkings-pfp-01.png`).then((result) => {
+    //   let rawMetadata = web3.utils.toHex({
+    //     LSP4Metadata: {
+    //       name: `PumpKings 🎃`,
+    //       description: `Trick or treat! This NFT is a spooky surprise, full of Halloween fun and festive cheer.`,
+    //       links: [
+    //         { title: 'Website', url: 'https://pumpkings.boo' },
+    //         { title: 'Mint', url: 'https://pumpkings.boo' },
+    //       ],
+    //       attributes: [
+    //         { key: 'Version', value: 1, type: 'number' },
+    //         { key: 'Year', value: 2024, type: 'number' },
+    //         { key: 'Type', value: `PFP`, type: 'string' },
+    //         {
+    //           key: '🆙',
+    //           value: true,
+    //           type: 'boolean',
+    //         },
+    //       ],
+    //       icon: [{ width: 500, height: 500, url: 'ipfs://QmSo9SgGZndKBHU72RajxfbuHLXvX69RDsXjeUzLTq9xYT', verification: { method: 'keccak256(bytes)', data: '0x42507c8f68914fd853c6fd2ada0b5d2503e0dc7bf34cadcafcdab90b09230829' } }],
+    //       backgroundImage: [
+    //         {
+    //           width: 1600,
+    //           height: 400,
+    //           url: 'ipfs://QmeLLiebWhsQLQw8PCKuS1x8Umj7hMqZVmkNq4pdsU4nvH',
+    //           verification: {
+    //             method: 'keccak256(bytes)',
+    //             data: '0xe96ce0fbe7a758af3aedcc00c26b3859a15a47c20306e0cd9cde04373b79f1df',
+    //           },
+    //         },
+    //       ],
+    //       assets: [],
+    //       images: [
+    //         [
+    //           {
+    //             width: 1080,
+    //             height: 1080,
+    //             url: `https://ipfs.io/ipfs/QmVNhUQUZobqM4jzNqt41MjzwmPQVpuhg1ZAsocNhcbp2J/pumpkings-pfp-01.png`,
+    //             verification: {
+    //               method: 'keccak256(bytes)',
+    //               data: web3.utils.keccak256(result),
+    //             },
+    //           },
+    //         ],
+    //       ],
+    //     },
+    //   })
+    //   console.log(rawMetadata)
+    // })
   }, [])
 
   return (
